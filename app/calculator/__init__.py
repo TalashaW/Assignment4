@@ -13,7 +13,7 @@ providing a comprehensive learning experience for students.
 """
 
 import sys
-import readline  # Enables command history and editing features
+#import readline  # Enables command history and editing features
 from typing import List
 from app.calculation import Calculation, CalculationFactory
 
@@ -40,8 +40,8 @@ Special Commands:
     exit      : Exit the calculator.
 
 Examples:
-    add 10 5
-    subtract 15.5 3.2
+    add 3 5
+    subtract 1.5 2.4
     multiply 7 8
     divide 20 4
     """
@@ -62,20 +62,28 @@ def display_history(history: List[Calculation]) -> None:
         for idx, calculation in enumerate(history, start=1):
             print(f"{idx}. {calculation}")
 
+            # LBYL is used here to check if the user input matches any special commands.
 
 def calculator() -> None:
-    """
-    Professional REPL calculator that performs addition, subtraction,
-    multiplication, and division using Calculation classes.
 
-    This function demonstrates both LBYL and EAFP programming paradigms.
-    """
     # Initialize an empty list to keep track of calculation history
     history: List[Calculation] = []
 
     # Welcome message to the user
-    print("Welcome to the Professional Calculator REPL!")
+    print("Welcome to the Professional Calculator!")
     print("Type 'help' for instructions or 'exit' to quit.\n")
+
+    def handle_user_input(command: str):
+        if command == "help":
+            display_help()
+            return True
+        elif command == "history":
+            display_history(history)
+            return True
+        elif command == "exit":
+            print("Exiting calculator. Goodbye!")
+            sys.exit(0)
+        return False
 
     # Continuously prompt the user for input until they decide to exit
     while True:
@@ -91,20 +99,9 @@ def calculator() -> None:
                 # Input is empty, so we skip processing and prompt again.
                 continue # pragma: no cover
 
-            # Handle special commands
-            command = user_input.lower()
-
-            # LBYL is used here to check if the user input matches any special commands.
-            if command == "help":
-                display_help()
+            # Handle lowercase and uppercase input
+            if handle_user_input(user_input.lower()):
                 continue
-            elif command == "history":
-                display_history(history)
-                continue
-            elif command == "exit":
-                print("Exiting calculator. Goodbye!\n")
-                sys.exit(0)  # Exit the program gracefully
-
             # EAFP (Easier to Ask Forgiveness than Permission)
             # -----------------------------------
             # Instead of checking if the input is correctly formatted (which can be complex),
@@ -128,7 +125,8 @@ def calculator() -> None:
                 calculation = CalculationFactory.create_calculation(operation, num1, num2)
             except ValueError as ve:
                 # Handle unsupported operations
-                print(ve)
+                #print(ve)
+                print(f"Unsupported calculation type: '{operation}'.")
                 print("Type 'help' to see the list of supported operations.\n")
                 continue  # Prompt the user again
 

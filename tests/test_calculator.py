@@ -47,8 +47,8 @@ Special Commands:
     exit      : Exit the calculator.
 
 Examples:
-    add 10 5
-    subtract 15.5 3.2
+    add 3 5
+    subtract 1.5 2.4
     multiply 7 8
     divide 20 4
 """

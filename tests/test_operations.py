@@ -90,6 +90,24 @@ def test_addition_with_zero():
     # Assert
     assert result == expected_result, f"Expected {a} + {b} to be {expected_result}, got {result}"
 
+def test_addition_with_decimals():
+    """
+    Test the addition method with decimals
+    
+    This test verifies that decimals returns the correct difference
+    """
+    # Arrange
+    a = 4.5
+    b = 9.9
+    expected_result = 14.4
+
+    # Act
+    result = Operation.addition(a, b)
+
+    # Assert
+    assert result == pytest.approx(expected_result), f"Expected {a} - {b} to be {expected_result}, got {result}"
+
+
 
 # -----------------------------------------------------------------------------------
 # Test Subtraction Method
@@ -166,7 +184,22 @@ def test_subtraction_with_zero():
     # Assert
     assert result == expected_result, f"Expected {a} - {b} to be {expected_result}, got {result}"
 
+def test_subtraction_with_float():
+    """
+    Test the subtraction method with decimals
+    
+    This test verifies that subtracting two floats returns the correct difference
+    """
+    # Arrange
+    a = 4.5
+    b = 6.2
+    expected_result = -1.7
 
+    # Act
+    result = Operation.subtraction(a, b)
+
+    # Assert
+    assert result == pytest.approx(expected_result), f"Expected {a} - {b} to be {expected_result}, got {result}"
 # -----------------------------------------------------------------------------------
 # Test Multiplication Method
 # -----------------------------------------------------------------------------------
@@ -242,7 +275,14 @@ def test_multiplication_with_zero():
     # Assert
     assert result == expected_result, f"Expected {a} * {b} to be {expected_result}, got {result}"
 
+def test_multiplication_decimals():
+    #Arrange
+    a = 3.5
+    b = 4.2
+    expected_result = 14.7
 
+    result = Operation.multiplication(a,b)
+    assert result == pytest.approx(expected_result), f"Expected {a} * {b} to be {expected_result}, got {result}"
 # -----------------------------------------------------------------------------------
 # Test Division Method
 # -----------------------------------------------------------------------------------
